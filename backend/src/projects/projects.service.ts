@@ -21,6 +21,7 @@ export class ProjectsService {
     return addtask;
   }
 
+  // find all project
   async findAll() {
     const user = await this.databaseService.project.findMany({
       include: {
@@ -30,6 +31,7 @@ export class ProjectsService {
     return user;
   }
 
+  // find single project
   async findOne(id: string) {
     const singleProject = await this.databaseService.project.findUnique({
       where: {
@@ -50,6 +52,7 @@ export class ProjectsService {
     };
   }
 
+  // update project
   async update(id: string, updateProjectDto: UpdateProjectDto) {
     const updateProject = await this.databaseService.project.update({
       where: {
@@ -61,6 +64,7 @@ export class ProjectsService {
     return updateProject;
   }
 
+  // delete project
   async remove(id: string) {
     const deletedProject = await this.databaseService.project.delete({
       where: {
