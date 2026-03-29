@@ -29,7 +29,6 @@ export class ProjectsController {
 
   @Get()
   @UseGuards(JwtGuard)
-  @UseGuards(JwtGuard)
   findAll() {
     return this.projectsService.findAll();
   }

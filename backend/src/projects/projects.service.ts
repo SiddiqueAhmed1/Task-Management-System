@@ -21,12 +21,8 @@ export class ProjectsService {
 
   // find all project
   async findAll() {
-    const user = await this.databaseService.project.findMany({
-      include: {
-        user: true,
-      },
-    });
-    return user;
+    const project = await this.databaseService.project.findMany({});
+    return project;
   }
 
   // find single project

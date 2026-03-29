@@ -61,9 +61,9 @@ export class AuthService {
     if (!passwordCheck) throw new NotFoundException('Password is wrong');
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, role, id, ...user } = userExist;
+    const { password, id, ...user } = userExist;
 
-    const token = this.jwtService.sign({ id, role });
+    const token = this.jwtService.sign({ id, role: user.role });
 
     return {
       message: 'Login Succesfull',
