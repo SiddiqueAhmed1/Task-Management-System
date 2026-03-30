@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -20,8 +20,10 @@ export class ProjectsService {
   }
 
   // find all project
-  async findAll() {
-    const project = await this.databaseService.project.findMany({});
+  async findAll(userId: string) {
+    const project = await this.databaseService.project.findMany({
+      where: { userId },
+    });
     return project;
   }
 
@@ -59,13 +61,17 @@ export class ProjectsService {
   }
 
   // delete project
-  async remove(id: string) {
-    const deletedProject = await this.databaseService.project.delete({
-      where: {
-        id,
-      },
+  async remove(id: string, userId: string) {
+    const project = await this.databaseService.project.findUnique({
+      where: { id },
     });
 
-    return deletedProject;
+    if (!project || project.userId !== userId) {
+      throw new NotFoundException('Project not found or access denied');
+    }
+
+    return await this.databaseService.project.delete({
+      where: { id },
+    });
   }
 }

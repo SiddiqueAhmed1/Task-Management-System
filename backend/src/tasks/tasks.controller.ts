@@ -25,10 +25,11 @@ export class TasksController {
     return this.tasksService.create(createTaskDto, userId);
   }
 
+  // get specific user's and project's task
   @Get()
   @UseGuards(JwtGuard)
-  findAll() {
-    return this.tasksService.findAll();
+  findAll(@Request() req) {
+    return this.tasksService.findAll(req.user.id);
   }
 
   @Get(':id')

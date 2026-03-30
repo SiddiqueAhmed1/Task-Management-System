@@ -22,15 +22,14 @@ export class ProjectsController {
   @Post()
   @UseGuards(JwtGuard)
   async create(@Request() req, @Body() createProjectDto: CreateProjectDto) {
-    console.log('we are from project service', req.user);
     const userId = req.user.id;
     return this.projectsService.create(createProjectDto, userId);
   }
 
   @Get()
   @UseGuards(JwtGuard)
-  findAll() {
-    return this.projectsService.findAll();
+  findAll(@Request() req) {
+    return this.projectsService.findAll(req.user.id);
   }
 
   @Get(':id')
@@ -47,7 +46,7 @@ export class ProjectsController {
 
   @Delete(':id')
   @UseGuards(JwtGuard)
-  remove(@Param('id') id: string) {
-    return this.projectsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.projectsService.remove(id, req.user.id);
   }
 }

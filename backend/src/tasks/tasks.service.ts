@@ -6,6 +6,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class TasksService {
   constructor(private databaseService: PrismaService) {}
+
+  // create task
   async create(createTaskDto: CreateTaskDto, userId: string) {
     // check user's access on this project
     const project = await this.databaseService.project.findUnique({
@@ -34,8 +36,10 @@ export class TasksService {
   }
 
   // find all
-  findAll() {
-    return this.databaseService.task.findMany({});
+  findAll(userId: string) {
+    return this.databaseService.task.findMany({
+      where: { project: { userId } },
+    });
   }
 
   async findOne(id: string) {
