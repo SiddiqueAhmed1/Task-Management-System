@@ -28,7 +28,7 @@ export default function Header() {
           <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-sm">
             ⚡
           </div>
-          <span className="font-bold text-base">TMS</span>
+          <span className="font-bold text-2xl ">TMS</span>
         </div>
 
         <nav className="flex items-center gap-1">
@@ -36,7 +36,7 @@ export default function Header() {
             <Link
               key={href}
               href={href}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-md text-md font-medium transition-all ${
                 pathname === href
                   ? "bg-primary/10 text-primary border border-primary/20"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary"

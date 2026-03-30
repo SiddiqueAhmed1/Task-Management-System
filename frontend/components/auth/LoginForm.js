@@ -24,7 +24,7 @@ export default function LoginForm() {
     } catch (err) {
       const errorMsg = err.response?.data?.message;
       toast.error(
-        Array.isArray(errorMsg) ? errorMsg[0] : errorMsg || "Login failed"
+        Array.isArray(errorMsg) ? errorMsg[0] : errorMsg || "Login failed",
       );
     } finally {
       setLoading(false);
@@ -38,9 +38,10 @@ export default function LoginForm() {
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
+              className={"h-9 border border-black/20"}
               id="email"
               type="email"
-              placeholder="abc@example.com"
+              placeholder="admin@example.com"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               required
@@ -49,6 +50,7 @@ export default function LoginForm() {
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input
+              className={"h-9 border border-black/20"}
               id="password"
               type="password"
               placeholder="••••••••"
@@ -59,7 +61,11 @@ export default function LoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-3">
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button
+            type="submit"
+            className="w-full py-5 hover:bg-black/80 cursor-pointer text-md"
+            disabled={loading}
+          >
             {loading ? "Signing in..." : "Sign In"}
           </Button>
           <p className="text-sm text-muted-foreground">

@@ -35,6 +35,7 @@ export default function RegisterForm() {
           <div className="space-y-2">
             <Label htmlFor="name">Full Name</Label>
             <Input
+              className={"h-9 border border-black/20"}
               id="name"
               placeholder="Abdul Karim"
               value={form.name}
@@ -45,6 +46,7 @@ export default function RegisterForm() {
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
+              className={"h-9 border border-black/20"}
               id="email"
               type="email"
               placeholder="karim@example.com"
@@ -56,6 +58,7 @@ export default function RegisterForm() {
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input
+              className={"h-9 border border-black/20"}
               id="password"
               type="password"
               placeholder="••••••••"
@@ -66,7 +69,11 @@ export default function RegisterForm() {
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-3">
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button
+            type="submit"
+            className="w-full py-5 hover:bg-black/80 cursor-pointer text-md"
+            disabled={loading}
+          >
             {loading ? "Creating account..." : "Create Account"}
           </Button>
           <p className="text-sm text-muted-foreground">
