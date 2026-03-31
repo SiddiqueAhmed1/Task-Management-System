@@ -49,11 +49,11 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <p className="text-sm font-medium leading-none">{user?.name}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{user?.role}</p>
+            <p className="text-md font-medium leading-none ">{user?.name}</p>
+            <p className="text-xs  mt-0.5 text-green-800">{user?.role}</p>
           </div>
           <Avatar className="h-8 w-8">
-            <AvatarFallback className="bg-primary/10 text-primary text-xs">
+            <AvatarFallback className="bg-primary/10 text-primary text-md">
               {user?.name?.[0]?.toUpperCase() || "U"}
             </AvatarFallback>
           </Avatar>

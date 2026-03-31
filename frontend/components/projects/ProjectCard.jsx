@@ -1,58 +1,69 @@
 "use client";
 import Link from "next/link";
-import { MoreVertical, Pencil, Trash2, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Trash2, ArrowRight, Edit2, FolderKanban } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function ProjectCard({ project, onDelete, onEdit }) {
   return (
-    <Card className="border-border/50 hover:border-primary/30 transition-all group">
-      <CardHeader className="pb-2 flex flex-row items-start justify-between">
-        <div>
-          <CardTitle className="text-base">{project.name}</CardTitle>
-          <p className="text-xs text-muted-foreground mt-1">
-            {new Date(project.createdAt).toLocaleDateString()}
-          </p>
+    <Card
+      key={project.id}
+      className="group shadow-md hover:shadow-lg transition-shadow"
+    >
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between">
+          <div className="h-10 w-10 rounded-md bg-primary/10 flex items-center justify-center">
+            <FolderKanban className="h-5 w-5 text-primary" />
+          </div>
+          <span
+            className={`text-xs px-2 py-1 rounded-full capitalize bg-green-100 text-green-700`}
+          >
+            Active
+          </span>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <CardTitle className={"text-lg font-semibold mt-2 text-neutral-800"}>
+          {project.name}
+        </CardTitle>
+        <CardDescription className="line-clamp-2">
+          {project.description || "No description"}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">
+            {new Date(project.createdAt).toLocaleDateString()}
+          </span>
+          <div className="flex items-center gap-1">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 opacity-0 group-hover:opacity-100"
+              onClick={() => onEdit(project)}
+              className="h-8 w-8 text-muted-foreground hover:text-primary"
             >
-              <MoreVertical size={14} />
+              <Edit2 className="h-4 w-4" />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onEdit(project)}>
-              <Pencil size={14} className="mr-2" /> Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => onDelete(project.id)}
-              className="text-destructive focus:text-destructive"
+              className="h-8 w-8 text-muted-foreground hover:text-destructive"
             >
-              <Trash2 size={14} className="mr-2" /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-          {project.description || "No description"}
-        </p>
-        <Link href={`/projects/${project.id}`}>
-          <Button variant="outline" size="sm" className="w-full gap-2">
-            View Tasks <ArrowRight size={14} />
-          </Button>
-        </Link>
+              <Trash2 className="h-4 w-4" />
+            </Button>
+            <Button asChild size="sm">
+              <Link href={`/projects/${project.id}`}>
+                View
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

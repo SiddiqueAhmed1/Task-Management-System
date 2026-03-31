@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -23,7 +24,7 @@ export class CreateUserDto {
   password: string;
 
   @IsEnum(Role)
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   role: Role;
 }

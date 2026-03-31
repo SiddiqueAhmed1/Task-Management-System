@@ -18,10 +18,15 @@ export class DashboardService {
       where: { project: { userId }, status: 'COMPLETED' },
     });
 
+    const inProgressTask = await this.databaseService.task.count({
+      where: { project: { userId }, status: 'IN_PROGRESS' },
+    });
+
     return {
       totalProjects,
       totalTask,
       completedTask,
+      inProgressTask,
       pendingTask: totalTask - completedTask,
     };
   }
