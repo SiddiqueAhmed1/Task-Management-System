@@ -17,7 +17,6 @@ const navItems = [
 export default function Header() {
   const pathname = usePathname();
   const { user } = useAuth();
-  console.log(pathname);
 
   const isAdmin = user?.role === "ADMIN";
   const visibleItems = navItems.filter((item) => !item.adminOnly || isAdmin);

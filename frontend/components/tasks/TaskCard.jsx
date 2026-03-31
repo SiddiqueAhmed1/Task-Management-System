@@ -3,8 +3,10 @@ import {
   BadgeAlert,
   CircleCheck,
   Clock,
+  DeleteIcon,
   MoreVertical,
   Pencil,
+  Trash2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,6 +40,16 @@ const statusIcon = {
 };
 
 export default function TaskCard({ task, onEdit, onRefresh }) {
+  const handleTaskDelete = async () => {
+    try {
+      await api.delete(`/tasks/${task.id}`);
+      toast.success("Task deleted");
+      onRefresh?.();
+    } catch (error) {
+      toast.error("Failed to delete");
+    }
+  };
+
   const handleStatusChange = async (status) => {
     try {
       console.log("status from status chane", status);
@@ -97,7 +109,11 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => onEdit(task)}>
-              <Pencil size={13} className="mr-2" /> Edit
+              <Pencil size={13} /> Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleTaskDelete}>
+              <Trash2 />
+              Delete
             </DropdownMenuItem>
             {statusOptions
               .filter((s) => s !== task.status)

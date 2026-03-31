@@ -32,6 +32,7 @@ export default function ProjectDetailPage() {
         api.get(`/projects/${id}`),
         api.get(`/tasks/project/${id}`),
       ]);
+
       setProject(projRes.data.singleProject || projRes.data);
       setTasks(Array.isArray(tasksRes.data) ? tasksRes.data : []);
     } catch {

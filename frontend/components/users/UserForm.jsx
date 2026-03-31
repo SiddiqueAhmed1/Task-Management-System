@@ -24,7 +24,7 @@ export default function UserForm({ user, onSuccess, onCancel }) {
     setLoading(true);
     try {
       if (user) {
-        // edit
+        // user
         await api.patch(`/users/${user.id}`, form);
         toast.success("User updated");
       } else {

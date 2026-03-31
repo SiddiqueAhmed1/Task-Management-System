@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Trash2, ShieldCheck, User, Plus, Edit2 } from "lucide-react";
+import { Trash2, ShieldCheck, User, Plus, Edit2, Pencil } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -60,6 +60,12 @@ export default function UserList() {
     }
   };
 
+  const handleEditUser = async (id) => {
+    try {
+      await api.patch(`/users/${id}`);
+    } catch (error) {}
+  };
+
   const handleSuccess = () => {
     setOpen(false);
     setEditUser(null);
@@ -109,7 +115,7 @@ export default function UserList() {
                     {user.name?.[0]?.toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-md font-medium">{user.name}</p>
+                    <p className="text-lg font-medium">{user.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {user.email}
                     </p>
@@ -119,7 +125,7 @@ export default function UserList() {
                   variant="outline"
                   className={
                     user.role === "ADMIN"
-                      ? "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
+                      ? "border-green-500/80 text-neutral-600 bg-green-500/20"
                       : "border-slate-500/30 text-slate-400 bg-slate-500/10"
                   }
                 >
@@ -131,26 +137,30 @@ export default function UserList() {
                   {user.role}
                 </Badge>
               </div>
-              {user.role !== "ADMIN" && (
-                <div className="mt-4 flex justify-end gap-3">
-                  <Button
-                    size="sm"
-                    className="bg-green-900 hover:bg-green-800 gap-3 text-lime-600 cursor-pointer h-7 p-2"
-                    onClick={() => handleSuccess(user.id)}
-                  >
-                    <Edit2 />
-                  </Button>
 
+              <div className="mt-4 flex justify-end gap-3">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="hover:bg-green-400 gap-3 cursor-pointer h-7 p-2"
+                  onClick={() => {
+                    setEditUser(user);
+                    setOpen(true);
+                  }}
+                >
+                  <Pencil />
+                </Button>
+                {user.role !== "ADMIN" && (
                   <Button
                     variant="ghost"
                     size="sm"
-                    className=" gap-3 text-muted-foreground hover:text-destructive cursor-pointer   h-7 px-2"
+                    className=" gap-3 text-muted-foreground hover:text-destructive cursor-pointer h-7 px-2"
                     onClick={() => handleDelete(user.id)}
                   >
                     <Trash2 size={13} /> Delete
                   </Button>
-                </div>
-              )}
+                )}
+              </div>
             </CardContent>
           </Card>
         ))}
