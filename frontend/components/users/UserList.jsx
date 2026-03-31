@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Trash2, ShieldCheck, User, Plus } from "lucide-react";
+import { Trash2, ShieldCheck, User, Plus, Edit2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -96,11 +96,11 @@ export default function UserList() {
       </div>
 
       {/* user list */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {users.map((user) => (
           <Card
             key={user.id}
-            className="border-border/50 hover:border-primary/20 transition-all group"
+            className="shadow-md border-border/50 hover:border-primary/20 transition-all "
           >
             <CardContent className="pt-5 pb-4">
               <div className="flex items-start justify-between">
@@ -109,7 +109,7 @@ export default function UserList() {
                     {user.name?.[0]?.toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-sm font-medium">{user.name}</p>
+                    <p className="text-md font-medium">{user.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {user.email}
                     </p>
@@ -132,14 +132,22 @@ export default function UserList() {
                 </Badge>
               </div>
               {user.role !== "ADMIN" && (
-                <div className="mt-4 flex justify-end">
+                <div className="mt-4 flex justify-end gap-3">
+                  <Button
+                    size="sm"
+                    className="bg-green-900 hover:bg-green-800 gap-3 text-lime-600 cursor-pointer h-7 p-2"
+                    onClick={() => handleSuccess(user.id)}
+                  >
+                    <Edit2 />
+                  </Button>
+
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 h-7 px-2"
+                    className=" gap-3 text-muted-foreground hover:text-destructive cursor-pointer   h-7 px-2"
                     onClick={() => handleDelete(user.id)}
                   >
-                    <Trash2 size={13} className="mr-1" /> Delete
+                    <Trash2 size={13} /> Delete
                   </Button>
                 </div>
               )}

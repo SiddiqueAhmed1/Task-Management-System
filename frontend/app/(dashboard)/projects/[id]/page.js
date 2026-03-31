@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Plus } from "lucide-react";
+import { ArrowLeft, Plus, Pointer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,6 +15,7 @@ import TaskForm from "@/components/tasks/TaskForm";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import api from "@/lib/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -23,12 +24,13 @@ export default function ProjectDetailPage() {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
+  const router = useRouter();
 
   const fetchData = async () => {
     try {
       const [projRes, tasksRes] = await Promise.all([
         api.get(`/projects/${id}`),
-        api.get(`/tasks?projectId=${id}`),
+        api.get(`/tasks/project/${id}`),
       ]);
       setProject(projRes.data.singleProject || projRes.data);
       setTasks(Array.isArray(tasksRes.data) ? tasksRes.data : []);
@@ -43,6 +45,10 @@ export default function ProjectDetailPage() {
     fetchData();
   }, [id]);
 
+  const goToProjectPage = () => {
+    router.back();
+  };
+
   const handleTaskSuccess = () => {
     setOpen(false);
     setEditTask(null);
@@ -52,10 +58,16 @@ export default function ProjectDetailPage() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
+      <ArrowLeft
+        className="cursor-pointer hover:text-green-600"
+        onClick={goToProjectPage}
+      />
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{project?.name || "Project"}</h1>
+          <h1 className={"text-3xl font-semibold text-neutral-800"}>
+            {project?.name || "Project"}
+          </h1>
           <p className="text-muted-foreground">
             {project?.description || "No description"}
           </p>

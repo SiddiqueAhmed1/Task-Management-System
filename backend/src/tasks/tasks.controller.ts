@@ -26,27 +26,23 @@ export class TasksController {
   }
 
   // get specific user's and project's task
-  @Get()
+  @Get('project/:projectId')
   @UseGuards(JwtGuard)
-  findAll(@Request() req) {
-    return this.tasksService.findAll(req.user.id);
+  findByProject(@Param('projectId') projectId: string, @Request() req) {
+    return this.tasksService.findAll(projectId, req.user.id);
   }
 
-  @Get(':id')
-  @UseGuards(JwtGuard)
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(id);
-  }
-
+  // update task
   @Patch(':id')
   @UseGuards(JwtGuard)
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
 
+  // delte task
   @Delete(':id')
   @UseGuards(JwtGuard)
   remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+    return this.tasksService.remove(id);
   }
 }

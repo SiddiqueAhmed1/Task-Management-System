@@ -5,7 +5,7 @@ export default function UsersPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Users</h1>
+          <h1 className={"text-3xl font-semibold text-neutral-800"}>Users</h1>
           <p className="text-muted-foreground">
             Manage all users in the system.
           </p>

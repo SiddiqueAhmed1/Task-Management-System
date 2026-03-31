@@ -1,6 +1,11 @@
 "use client";
-import { MoreVertical, Pencil } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  BadgeAlert,
+  CircleCheck,
+  Clock,
+  MoreVertical,
+  Pencil,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,16 +18,30 @@ import api from "@/lib/api";
 import { toast } from "sonner";
 
 const priorityColors = {
-  LOW: "bg-slate-500/20 text-slate-400 border-slate-500/20",
-  MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/20",
-  HIGH: "bg-red-500/20 text-red-400 border-red-500/20",
+  LOW: "bg-yellow-600 text-black border-emerald-800 p-3",
+  MEDIUM: "bg-amber-800 text-amber-400 border-amber-800 p-3",
+  HIGH: "bg-rose-700 text-black border-rose-800 p-3",
+};
+
+const statusColors = {
+  PENDING: "bg-orange700 text-orange-500 p-3 border-orange-800",
+  IN_PROGRESS: "bg-sky-100 text-sky-500 p-3 border-sky-800",
+  COMPLETED: "bg-teal-800 text-teal-400 p-3 border-teal-800",
 };
 
 const statusOptions = ["PENDING", "IN_PROGRESS", "COMPLETED"];
 
+const statusIcon = {
+  PENDING: <Clock size={20} color="#ff0066" />,
+  COMPLETED: <CircleCheck size={20} color="#00ff6e" />,
+  IN_PROGRESS: <BadgeAlert size={20} color="#ffc800" />,
+};
+
 export default function TaskCard({ task, onEdit, onRefresh }) {
   const handleStatusChange = async (status) => {
     try {
+      console.log("status from status chane", status);
+
       await api.patch(`/tasks/${task.id}`, { status });
       toast.success("Status updated");
       onRefresh?.();
@@ -32,53 +51,64 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
   };
 
   return (
-    <Card className="border-border/50 hover:border-primary/20 transition-all group">
-      <CardContent className="pt-4 pb-4">
-        <div className="flex items-start justify-between gap-2">
-          <p className="text-sm font-medium leading-snug flex-1">{task.name}</p>
-          {onEdit && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6 opacity-0 group-hover:opacity-100 shrink-0"
-                >
-                  <MoreVertical size={12} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => onEdit(task)}>
-                  <Pencil size={13} className="mr-2" /> Edit
+    <div className="shadow-md  flex items-center gap-4 px-4 py-4 rounded-lg border hover:border-green-900 bg-white border-primary/20 transition-all group">
+      {/* Name + Description */}
+      <div className="flex-1  ">
+        <div className="flex items-center gap-3">
+          <div>{statusIcon[task.status]}</div>
+          <div>
+            <p className="text-lg font-medium truncate">{task.name}</p>
+            {task.description && (
+              <p className="text-xs text-muted-foreground truncate mt-0.5">
+                {task.description}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Badges */}
+      <div className="flex items-center gap-2 shrink-0">
+        <Badge
+          variant="outline"
+          className={`text-xs ${statusColors[task.status]}`}
+        >
+          {task.status.replace("_", " ")}
+        </Badge>
+        <Badge
+          variant="outline"
+          className={`text-xs ${priorityColors[task.priority]}`}
+        >
+          {task.priority}
+        </Badge>
+      </div>
+
+      {/* Actions */}
+      {onEdit && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 opacity-0 group-hover:opacity-100 shrink-0"
+            >
+              <MoreVertical size={13} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => onEdit(task)}>
+              <Pencil size={13} className="mr-2" /> Edit
+            </DropdownMenuItem>
+            {statusOptions
+              .filter((s) => s !== task.status)
+              .map((s) => (
+                <DropdownMenuItem key={s} onClick={() => handleStatusChange(s)}>
+                  Move to {s.replace("_", " ")}
                 </DropdownMenuItem>
-                {statusOptions
-                  .filter((s) => s !== task.status)
-                  .map((s) => (
-                    <DropdownMenuItem
-                      key={s}
-                      onClick={() => handleStatusChange(s)}
-                    >
-                      Move to {s.replace("_", " ")}
-                    </DropdownMenuItem>
-                  ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-        {task.description && (
-          <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-            {task.description}
-          </p>
-        )}
-        <div className="flex items-center gap-2 mt-3">
-          <Badge
-            variant="outline"
-            className={`text-xs ${priorityColors[task.priority]}`}
-          >
-            {task.priority}
-          </Badge>
-        </div>
-      </CardContent>
-    </Card>
+              ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+    </div>
   );
 }

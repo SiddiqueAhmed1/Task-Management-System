@@ -143,7 +143,7 @@ export default function StatsCards() {
         </Card>
 
         {/* task over view */}
-        <Card>
+        <Card className={"shadow"}>
           <CardHeader>
             <CardTitle className={"text-2xl font-semibold text-neutral-800"}>
               Task Overview

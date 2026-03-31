@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Request } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -35,36 +35,34 @@ export class TasksService {
     };
   }
 
-  // find all
-  findAll(userId: string) {
+  // find all task under specific project
+  async findAll(projectId: string, userId: string) {
     return this.databaseService.task.findMany({
-      where: { project: { userId } },
-    });
-  }
-
-  async findOne(id: string) {
-    const task = await this.databaseService.task.findUnique({
       where: {
-        id,
+        projectId,
+        project: { userId }, //specific user + specific project
       },
     });
-    return task;
   }
 
+  // update single task
   async update(id: string, updateTaskDto: UpdateTaskDto) {
     const updateTask = await this.databaseService.task.update({
-      where: {
-        id,
-      },
+      where: { id },
       data: updateTaskDto,
     });
+
     return {
       message: 'Task updated succesfully',
       updateTask,
     };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(@Request() id) {
+    return this.databaseService.task.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

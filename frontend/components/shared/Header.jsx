@@ -17,6 +17,7 @@ const navItems = [
 export default function Header() {
   const pathname = usePathname();
   const { user } = useAuth();
+  console.log(pathname);
 
   const isAdmin = user?.role === "ADMIN";
   const visibleItems = navItems.filter((item) => !item.adminOnly || isAdmin);
@@ -28,7 +29,11 @@ export default function Header() {
           <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-sm">
             ⚡
           </div>
-          <span className="font-bold text-2xl ">TMS</span>
+          <span className="font-bold text-2xl ">
+            <Link className="cursor-pointer" href={"/dashboard"}>
+              TMS
+            </Link>
+          </span>
         </div>
 
         <nav className="flex items-center gap-1">
