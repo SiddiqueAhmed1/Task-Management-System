@@ -70,7 +70,7 @@ Create a `.env` file in the `backend/` directory:
  
 ```env
 DATABASE_URL="your_neon_postgresql_connection_string"
-JWT_SECRET="your_jwt_secret_key"
+SECRET_KEY="your_jwt_secret_key"
 PORT=5000
 ```
  
