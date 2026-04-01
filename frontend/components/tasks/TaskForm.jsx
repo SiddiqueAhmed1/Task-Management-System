@@ -21,28 +21,37 @@ export default function TaskForm({ task, projectId, onSuccess, onCancel }) {
     description: "",
     priority: "MEDIUM",
     status: "PENDING",
+    dueDate: "",
   });
+
+  console.log(form.dueDate);
 
   useEffect(() => {
     if (task) {
       setForm({
         name: task.name,
         description: task.description || "",
-        priority: task.priority,
-        status: task.status,
+        priority: task.priority || "HIGH",
+        status: task.status || "PENDING",
+        dueDate: task.dueDate || "",
       });
     }
   }, [task]);
+
+  const formData = {
+    ...form,
+    dueDate: form.dueDate ? new Date(form.dueDate)?.toISOString() : undefined,
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       if (task) {
-        await api.patch(`/tasks/${task.id}`, form);
+        await api.patch(`/tasks/${task.id}`, formData);
         toast.success("Task updated");
       } else {
-        await api.post("/tasks", { ...form, projectId });
+        await api.post("/tasks", { ...formData, projectId });
         toast.success("Task created");
       }
       onSuccess();
@@ -105,6 +114,14 @@ export default function TaskForm({ task, projectId, onSuccess, onCancel }) {
               <SelectItem value="COMPLETED">Completed</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        <div className="space-y-2">
+          <Label>Due Date</Label>
+          <Input
+            type="date"
+            value={form.dueDate ? form.dueDate.split("T")[0] : ""}
+            onChange={(e) => setForm({ ...form, dueDate: e.target.value })}
+          />
         </div>
       </div>
       <div className="flex gap-2 justify-end">

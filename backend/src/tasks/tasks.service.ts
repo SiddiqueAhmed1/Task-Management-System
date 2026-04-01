@@ -24,6 +24,7 @@ export class TasksService {
     const task = await this.databaseService.task.create({
       data: {
         ...createTaskDto,
+        dueDate: createTaskDto.dueDate,
         name: createTaskDto.name,
         projectId: createTaskDto.projectId,
       },

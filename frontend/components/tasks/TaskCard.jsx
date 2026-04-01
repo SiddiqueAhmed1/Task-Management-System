@@ -79,6 +79,12 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
         </div>
       </div>
 
+      {task.dueDate ? (
+        <span>{task.dueDate.toLocaleString().split("T")[0]}</span>
+      ) : (
+        ""
+      )}
+
       {/* Badges */}
       <div className="flex items-center gap-2 shrink-0">
         <Badge
