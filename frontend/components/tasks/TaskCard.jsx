@@ -60,7 +60,7 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
   };
 
   return (
-    <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 rounded-lg border border-border/50 bg-card hover:border-primary/20 transition-all group min-h-[64px]">
+    <div className=" flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 rounded-lg border border-border/50 bg-card hover:border-primary/20 transition-all group min-h-[64px]  shadow">
       {/* Status Icon */}
       <div className="shrink-0">{statusIcon[task.status]}</div>
 

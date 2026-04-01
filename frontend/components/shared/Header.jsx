@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Menu, X } from "lucide-react";
+import { ListTodo, LogOut, Menu, X } from "lucide-react";
 import { logout } from "@/lib/auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -27,8 +27,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-sm">
-            ⚡
+          <div className="w-7 h-7 rounded-lg  border border-primary/20 flex items-center justify-center text-sm">
+            <ListTodo color="#57af55" />
           </div>
           <Link href="/dashboard" className="font-bold text-xl">
             TMS
