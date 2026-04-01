@@ -3,7 +3,6 @@ import {
   BadgeAlert,
   CircleCheck,
   Clock,
-  DeleteIcon,
   MoreVertical,
   Pencil,
   Trash2,
@@ -34,9 +33,9 @@ const statusColors = {
 const statusOptions = ["PENDING", "IN_PROGRESS", "COMPLETED"];
 
 const statusIcon = {
-  PENDING: <Clock size={20} color="#ff0066" />,
-  COMPLETED: <CircleCheck size={20} color="#00ff6e" />,
-  IN_PROGRESS: <BadgeAlert size={20} color="#ffc800" />,
+  PENDING: <Clock size={18} className="text-orange-400 shrink-0" />,
+  COMPLETED: <CircleCheck size={18} className="text-teal-400 shrink-0" />,
+  IN_PROGRESS: <BadgeAlert size={18} className="text-sky-400 shrink-0" />,
 };
 
 export default function TaskCard({ task, onEdit, onRefresh }) {
@@ -45,15 +44,13 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
       await api.delete(`/tasks/${task.id}`);
       toast.success("Task deleted");
       onRefresh?.();
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete");
     }
   };
 
   const handleStatusChange = async (status) => {
     try {
-      console.log("status from status chane", status);
-
       await api.patch(`/tasks/${task.id}`, { status });
       toast.success("Status updated");
       onRefresh?.();
@@ -63,39 +60,42 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
   };
 
   return (
-    <div className="shadow-md h-20  flex items-center gap-4 px-4 py-4 rounded-lg border hover:border-green-900 bg-white border-primary/20 transition-all group">
+    <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 rounded-lg border border-border/50 bg-card hover:border-primary/20 transition-all group min-h-[64px]">
+      {/* Status Icon */}
+      <div className="shrink-0">{statusIcon[task.status]}</div>
+
       {/* Name + Description */}
-      <div className="flex-1  ">
-        <div className="flex items-center gap-3">
-          <div>{statusIcon[task.status]}</div>
-          <div>
-            <p className="text-lg font-medium truncate">{task.name}</p>
-            {task.description && (
-              <p className="text-xs text-muted-foreground truncate mt-0.5">
-                {task.description}
-              </p>
-            )}
-          </div>
-        </div>
+      <div className="flex-1 min-w-0">
+        <p
+          className={`text-sm font-medium truncate ${task.status === "COMPLETED" ? "line-through text-muted-foreground" : ""}`}
+        >
+          {task.name}
+        </p>
+        {task.description && (
+          <p className="text-xs text-muted-foreground truncate mt-0.5">
+            {task.description}
+          </p>
+        )}
       </div>
 
-      {task.dueDate ? (
-        <span>Last Date: {task.dueDate.toLocaleString().split("T")[0]}</span>
-      ) : (
-        ""
+      {/* Due Date — hidden on small mobile */}
+      {task.dueDate && (
+        <span className="hidden sm:block text-xs text-muted-foreground shrink-0 whitespace-nowrap">
+          Due: {task.dueDate.split("T")[0]}
+        </span>
       )}
 
-      {/* Badges */}
-      <div className="flex items-center gap-2 shrink-0">
+      {/* Badges — status hidden on mobile */}
+      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <Badge
           variant="outline"
-          className={`text-xs ${statusColors[task.status]}`}
+          className={`hidden sm:flex text-xs px-2 py-0.5 ${statusColors[task.status]}`}
         >
           {task.status.replace("_", " ")}
         </Badge>
         <Badge
           variant="outline"
-          className={`text-xs ${priorityColors[task.priority]}`}
+          className={`text-xs px-2 py-0.5 ${priorityColors[task.priority]}`}
         >
           {task.priority}
         </Badge>
@@ -108,18 +108,20 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-7 w-7 opacity-0 group-hover:opacity-100 shrink-0"
+              className="h-7 w-7 md:opacity-0 md:group-hover:opacity-100 shrink-0"
             >
               <MoreVertical size={13} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => onEdit(task)}>
-              <Pencil size={13} /> Edit
+              <Pencil size={13} className="mr-2" /> Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleTaskDelete}>
-              <Trash2 />
-              Delete
+            <DropdownMenuItem
+              onClick={handleTaskDelete}
+              className="text-destructive focus:text-destructive"
+            >
+              <Trash2 size={13} className="mr-2" /> Delete
             </DropdownMenuItem>
             {statusOptions
               .filter((s) => s !== task.status)

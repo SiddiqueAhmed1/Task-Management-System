@@ -68,6 +68,11 @@ export default function LoginForm() {
           >
             {loading ? "Signing in..." : "Sign In"}
           </Button>
+          <span className="text-neutral-800 -m-2 mt-1">Demo creadentials:</span>
+          <span className="text-neutral-600">
+            {" "}
+            admin@example.com / admin123
+          </span>
           <p className="text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link href="/register" className="text-primary hover:underline">

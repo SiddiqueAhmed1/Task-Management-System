@@ -7,6 +7,7 @@ export function useAuth() {
 
   useEffect(() => {
     const savedUser = Cookies.get("user");
+
     if (savedUser) {
       setTimeout(() => {
         setUser(JSON.parse(savedUser));
