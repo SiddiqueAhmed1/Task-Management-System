@@ -15,7 +15,7 @@ export default function UserForm({ user, onSuccess, onCancel }) {
       setForm({
         name: user.name,
         email: user.email,
-        password: user.password || "",
+        password: "",
       });
   }, [user]);
 

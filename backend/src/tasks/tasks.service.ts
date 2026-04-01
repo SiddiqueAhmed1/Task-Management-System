@@ -43,6 +43,9 @@ export class TasksService {
         projectId,
         project: { userId }, //specific user + specific project
       },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
   }
 

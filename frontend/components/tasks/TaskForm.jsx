@@ -34,6 +34,7 @@ export default function TaskForm({ task, projectId, onSuccess, onCancel }) {
         priority: task.priority || "HIGH",
         status: task.status || "PENDING",
         dueDate: task.dueDate || "",
+        projectId: task.projectId,
       });
     }
   }, [task]);
@@ -88,6 +89,7 @@ export default function TaskForm({ task, projectId, onSuccess, onCancel }) {
           <Select
             value={form.priority}
             onValueChange={(v) => setForm({ ...form, priority: v })}
+            key={form.status}
           >
             <SelectTrigger>
               <SelectValue />
@@ -104,6 +106,7 @@ export default function TaskForm({ task, projectId, onSuccess, onCancel }) {
           <Select
             value={form.status}
             onValueChange={(v) => setForm({ ...form, status: v })}
+            key={form.status}
           >
             <SelectTrigger>
               <SelectValue />

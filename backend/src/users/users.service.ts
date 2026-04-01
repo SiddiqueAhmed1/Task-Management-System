@@ -38,7 +38,11 @@ export class UsersService {
 
   // get all user
   async findAll() {
-    return await this.databaseService.user.findMany();
+    return await this.databaseService.user.findMany({
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
   }
 
   // update single user

@@ -63,7 +63,7 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
   };
 
   return (
-    <div className="shadow-md  flex items-center gap-4 px-4 py-4 rounded-lg border hover:border-green-900 bg-white border-primary/20 transition-all group">
+    <div className="shadow-md h-20  flex items-center gap-4 px-4 py-4 rounded-lg border hover:border-green-900 bg-white border-primary/20 transition-all group">
       {/* Name + Description */}
       <div className="flex-1  ">
         <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ export default function TaskCard({ task, onEdit, onRefresh }) {
       </div>
 
       {task.dueDate ? (
-        <span>{task.dueDate.toLocaleString().split("T")[0]}</span>
+        <span>Last Date: {task.dueDate.toLocaleString().split("T")[0]}</span>
       ) : (
         ""
       )}
