@@ -27,7 +27,7 @@ export class DashboardService {
       totalTask,
       completedTask,
       inProgressTask,
-      pendingTask: totalTask - completedTask,
+      pendingTask: totalTask - completedTask - inProgressTask,
     };
   }
 }

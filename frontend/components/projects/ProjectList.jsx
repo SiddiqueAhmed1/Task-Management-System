@@ -59,7 +59,10 @@ export default function ProjectList() {
       <div className="flex justify-end mb-4">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setEditProject(null)}>
+            <Button
+              className={"cursor-pointer"}
+              onClick={() => setEditProject(null)}
+            >
               <Plus size={16} className="mr-2" /> New Project
             </Button>
           </DialogTrigger>

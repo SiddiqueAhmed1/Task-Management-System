@@ -27,13 +27,13 @@ const statConfig = [
   },
   {
     key: "completedTask",
-    label: "Completed",
+    label: "Completed Tasks",
     icon: CheckCircle2,
     color: "text-green-400",
   },
   {
     key: "pendingTask",
-    label: "Pending",
+    label: "Pending Tasks",
     icon: Clock,
     color: "text-orange-400",
   },
@@ -164,7 +164,7 @@ export default function StatsCards() {
                     {completionRate}%
                   </span>
                 </div>
-                <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+                <div className="h-2.5 bg-neutral-200 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-green-500 rounded-full transition-all duration-500"
                     style={{ width: `${completionRate}%` }}

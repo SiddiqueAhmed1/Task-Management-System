@@ -79,7 +79,10 @@ export default function UserList() {
       <div className="flex justify-end mb-4">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setEditUser(null)}>
+            <Button
+              className={"cursor-pointer"}
+              onClick={() => setEditUser(null)}
+            >
               <Plus size={16} className="mr-2" /> Create User
             </Button>
           </DialogTrigger>
