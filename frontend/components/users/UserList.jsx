@@ -109,16 +109,18 @@ export default function UserList() {
         {users.map((user) => (
           <Card
             key={user.id}
-            className="shadow-md border-border/50 hover:border-primary/20 transition-all "
+            className="shadow-md hover:shadow-lg border-border/50 hover:border-primary/20 transition-all "
           >
             <CardContent className="pt-5 pb-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-sm font-bold text-primary">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-sm font-bold text-primary  ">
                     {user.name?.[0]?.toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-lg font-medium">{user.name}</p>
+                    <p className="text-lg font-medium lg:text-lg lg:font-semibold">
+                      {user.name}
+                    </p>
                     <p className="text-xs text-muted-foreground">
                       {user.email}
                     </p>
