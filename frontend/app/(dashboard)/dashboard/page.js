@@ -4,10 +4,14 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className={"text-3xl lg:text-4xl font-semibold text-neutral-800"}>
+        <h1
+          className={
+            "text-3xl lg:text-4xl xl:text-5xl font-semibold text-neutral-800"
+          }
+        >
           Dashboard
         </h1>
-        <p className="text-muted-foreground lg:text-lg">
+        <p className="text-muted-foreground lg:text-xl text-sm">
           Welcome back! Here&apos;s your overview.
         </p>
       </div>

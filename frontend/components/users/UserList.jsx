@@ -60,12 +60,6 @@ export default function UserList() {
     }
   };
 
-  const handleEditUser = async (id) => {
-    try {
-      await api.patch(`/users/${id}`);
-    } catch (error) {}
-  };
-
   const handleSuccess = () => {
     setOpen(false);
     setEditUser(null);
@@ -80,7 +74,7 @@ export default function UserList() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button
-              className={"cursor-pointer"}
+              className={"cursor-pointer px-2 py-5 lg:px-3 lg:py-6"}
               onClick={() => setEditUser(null)}
             >
               <Plus size={16} className="mr-2" /> Create User
@@ -118,10 +112,10 @@ export default function UserList() {
                     {user.name?.[0]?.toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-lg font-medium lg:text-lg lg:font-semibold">
+                    <p className="text-lg lg:text-2xl font-semibold">
                       {user.name}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs lg:text-lg text-muted-foreground">
                       {user.email}
                     </p>
                   </div>

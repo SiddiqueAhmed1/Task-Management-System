@@ -75,8 +75,11 @@ export default function ProjectDetailPage() {
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setEditTask(null)}>
-              <Plus size={16} className="mr-2" /> Add Task
+            <Button
+              className={`px-2 py-5  lg:px-3 lg:py-6 cursor-pointer`}
+              onClick={() => setEditTask(null)}
+            >
+              <Plus size={16} className="mr-2 " /> Add Task
             </Button>
           </DialogTrigger>
           <DialogContent>

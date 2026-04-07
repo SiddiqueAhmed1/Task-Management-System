@@ -4,7 +4,6 @@ import api from "./api";
 export const login = async (email, password) => {
   const inputData = { email, password };
   const res = await api.post(`/auth/login`, inputData);
-  console.log("login check", res.data);
 
   const { token, user } = res.data;
   Cookies.set("access_token", token, { expires: 7 });

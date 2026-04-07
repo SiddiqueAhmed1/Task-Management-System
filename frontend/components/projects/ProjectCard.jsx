@@ -27,10 +27,14 @@ export default function ProjectCard({ project, onDelete, onEdit }) {
             Active
           </span>
         </div>
-        <CardTitle className={"text-lg font-semibold mt-2 text-neutral-800"}>
+        <CardTitle
+          className={
+            "xl:text-2xl lg:text-lg text-sm font-semibold mt-2 text-neutral-800"
+          }
+        >
           {project.name}
         </CardTitle>
-        <CardDescription className="line-clamp-2">
+        <CardDescription className="line-clamp-2 text-xs lg:text-sm xl:text-lg">
           {project.description || "No description"}
         </CardDescription>
       </CardHeader>

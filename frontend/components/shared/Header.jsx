@@ -24,13 +24,13 @@ export default function Header() {
 
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg  border border-primary/20 flex items-center justify-center text-sm">
             <ListTodo color="#57af55" />
           </div>
-          <Link href="/dashboard" className="font-bold text-xl">
+          <Link href="/dashboard" className="font-bold text-xl lg:text-2xl">
             TMS
           </Link>
         </div>
@@ -41,10 +41,10 @@ export default function Header() {
             <Link
               key={href}
               href={href}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-md text-sm lg:text-lg font-medium transition-all ${
                 pathname === href
-                  ? "bg-primary/10 text-primary border border-primary/20"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  ? "bg-green-600/30 text-primary border border-primary/20"
+                  : "text-muted-foreground hover:text-foreground hover:bg-green-300/20"
               }`}
             >
               {label}
@@ -55,8 +55,8 @@ export default function Header() {
         {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-3">
           <div className="text-right">
-            <p className="text-sm font-medium leading-none">{user?.name}</p>
-            <p className="text-xs mt-0.5 text-green-500">{user?.role}</p>
+            <p className=" font-medium leading-none text-lg">{user?.name}</p>
+            <p className=" mt-0.5 text-green-500 text-sm">{user?.role}</p>
           </div>
           <Avatar className="h-8 w-8">
             <AvatarFallback className="bg-primary/10 text-primary text-xs">

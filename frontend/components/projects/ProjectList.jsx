@@ -60,7 +60,7 @@ export default function ProjectList() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button
-              className={"cursor-pointer"}
+              className={"cursor-pointer px-2 py-5  lg:px-3 lg:py-6"}
               onClick={() => setEditProject(null)}
             >
               <Plus size={16} className="mr-2" /> New Project

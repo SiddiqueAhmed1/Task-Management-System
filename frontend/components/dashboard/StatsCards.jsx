@@ -89,13 +89,13 @@ export default function StatsCards() {
         {statConfig.map(({ key, label, icon: Icon, color }) => (
           <Card
             key={key}
-            className="border-border/50 shadow-md hover:border-primary/30 transition-colors"
+            className="border-border/50 shadow-md hover:border-primary/30 transition-colors hover:shadow-lg"
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2 px-4 pt-4">
-              <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm lg:text-lg font-semibold text-black  ">
                 {label}
               </CardTitle>
-              <Icon size={18} className={color} />
+              <Icon size={24} className={color} />
             </CardHeader>
             <CardContent className="px-4 pb-4">
               <p className="text-2xl sm:text-3xl font-bold">
@@ -111,10 +111,13 @@ export default function StatsCards() {
         {/* Recent Projects */}
         <Card className="shadow">
           <CardHeader>
-            <CardTitle className="text-lg sm:text-xl font-semibold">
+            <CardTitle className="text-lg lg:text-2xl  font-semibold">
               Recent Projects
             </CardTitle>
-            <CardDescription>Your most recent projects</CardDescription>
+            <CardDescription className={`text-sm lg:text-lg`}>
+              {" "}
+              Your most recent projects
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {recentProjects.length === 0 ? (
@@ -131,10 +134,10 @@ export default function StatsCards() {
                         <FolderKanban className="h-4 w-4 text-blue-400" />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-medium text-sm truncate">
+                        <p className=" text-sm lg:text-lg font-semibold truncate">
                           {project.name}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs lg:text-sm text-muted-foreground">
                           {new Date(project.createdAt).toLocaleDateString()}
                         </p>
                       </div>
@@ -149,18 +152,22 @@ export default function StatsCards() {
         {/* Task Overview */}
         <Card className="shadow">
           <CardHeader>
-            <CardTitle className="text-lg sm:text-xl font-semibold">
+            <CardTitle className="text-lg lg:text-2xl font-semibold">
               Task Overview
             </CardTitle>
-            <CardDescription>Your task completion progress</CardDescription>
+            <CardDescription className={`text-sm lg:text-lg`}>
+              Your task completion progress
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {/* Progress Bar */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Completion Rate</span>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm lg:text-lg font-medium">
+                    Completion Rate
+                  </span>
+                  <span className="text-sm lg:text-lg text-muted-foreground">
                     {completionRate}%
                   </span>
                 </div>
@@ -175,22 +182,28 @@ export default function StatsCards() {
               {/* Task Stats */}
               <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-2">
                 <div className="text-center p-2 sm:p-3 rounded-lg bg-green-500/10 border border-green-500/20">
-                  <p className="text-xl sm:text-2xl font-bold text-green-400">
+                  <p className="text-lg lg:text-2xl font-bold text-green-400">
                     {stats.completedTask || 0}
                   </p>
-                  <p className="text-xs text-green-500 mt-0.5">Completed</p>
+                  <p className="text-xs lg:text-sm text-green-500 mt-0.5">
+                    Completed
+                  </p>
                 </div>
                 <div className="text-center p-2 sm:p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                  <p className="text-xl sm:text-2xl font-bold text-blue-400">
+                  <p className="text-lg lg:text-2xl  font-bold text-blue-400">
                     {stats.inProgressTask || 0}
                   </p>
-                  <p className="text-xs text-blue-500 mt-0.5">In Progress</p>
+                  <p className="text-xs lg:text-sm text-blue-500 mt-0.5">
+                    In Progress
+                  </p>
                 </div>
                 <div className="text-center p-2 sm:p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <p className="text-xl sm:text-2xl font-bold text-amber-400">
+                  <p className="text-lg lg:text-2xl font-bold text-amber-400">
                     {stats.pendingTask || 0}
                   </p>
-                  <p className="text-xs text-amber-500 mt-0.5">Pending</p>
+                  <p className="text-xs lg:text-sm text-amber-500 mt-0.5">
+                    Pending
+                  </p>
                 </div>
               </div>
             </div>
